@@ -17,9 +17,9 @@ Host Machine IP
 - Also, in order for X to work, you need to have XQuartz installed on OSX.
 
 Here a command line row which it will do it for you.
-```
-IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') 
-```
+
+```IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') ```
+
 this should set the IP variable as the ip of your local machine. 
 
 Note: If you’re on wifi you may want to use en1 instead of en0, check the value of the variable using ```echo $IP ```.
@@ -28,7 +28,7 @@ Run XQuartz
 Start XQuartz from command line using ```open -a XQuartz```. 
 - In the XQuartz preferences, go to the “Security” tab and make sure you’ve got “Allow connections from network clients” ticked:
 
-Now add the IP using Xhost with xhost + $IP. 
+Now add the IP using Xhost with ```xhost + $IP```. 
 - If the xhost command is not found check /usr/X11/bin/xhost as that might not be in your path.
 
 
