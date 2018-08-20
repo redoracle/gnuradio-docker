@@ -3,7 +3,7 @@ GnuRadio Docker
 
 ### Dockerfile
 
-This Dockerfile builds an Ubuntu 16.04 container with a working GNU Radio install. There are a number of other GNU Radio Dockerfiles that work fine for most people, but I couldn't seem to make any of them work on OSX.
+This Dockerfile builds an Ubuntu 16.04 container with a working GNU Radio install. There are a number of other GNU Radio Dockerfiles that work fine for most people, but I like to make my customization which also work on OSX.
 
 Build the container:
 ```
