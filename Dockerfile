@@ -32,12 +32,18 @@ RUN apt-get install -y \
         python-qt4 \
         python-qwt5-qt4 \
         python-zmq \
+        python-pip \
         swig
+
+RUN pip install --upgrade pip setuptools
+RUN pip install requests
 
 WORKDIR /opt/
 RUN git clone https://github.com/EttusResearch/uhd.git
 WORKDIR /opt/uhd/host
-RUN git checkout ${uhd_branch}
+RUN git remote update
+RUN git fetch
+RUN git checkout -b EttusResearch/${uhd_branch}
 
 RUN mkdir build && cd build
 WORKDIR /opt/uhd/host/build
@@ -46,10 +52,15 @@ RUN make -j${num_threads}
 RUN make install
 RUN ldconfig
 
+
+
 WORKDIR /opt/
 RUN git clone --recursive https://github.com/gnuradio/gnuradio.git
 WORKDIR /opt/gnuradio
-RUN git checkout ${gr_branch}
+RUN git remote update
+RUN git fetch
+RUN git checkout -b gnuradio/${gr_branch}
+
 RUN mkdir build && cd build
 WORKDIR /opt/gnuradio/build
 RUN cmake ../
