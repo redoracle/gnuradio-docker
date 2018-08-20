@@ -43,6 +43,6 @@ docker run -it --name Gnuradio -e XAUTHORITY=/tmp/xauth -v ~/.Xauthority:/tmp/xa
 
 
 ### Automating Script to download and run the Container
-There is also a script GnuRadioContainer.sh which will download the latest version of the container image from RedOracle's DockerHub and run it.
+There is also a script ```GnuRadioContainer.sh``` which will download the latest version of the container image from RedOracle's DockerHub and run it.
 
 
