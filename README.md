@@ -30,6 +30,6 @@ While below the docker command to run it
 docker run -it --name Gnuradio -e XAUTHORITY=/tmp/xauth -v ~/.Xauthority:/tmp/xauth -v /tmp/.X11-unix/:/tmp/ -e DISPLAY=$IP:0 --net host gnuradio:basic
 ```
 
-There is also a script GnuradioContainer.sh which will download the latest version of the container image and running it.
+There is also a script GnuRadioContainer.sh which will download the latest version of the container image from RedOracle's DockerHub and run it.
 
 
