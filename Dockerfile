@@ -32,7 +32,8 @@ RUN apt-get install -y \
         python-qt4 \
         python-qwt5-qt4 \
         python-zmq \
-        python-pip \
+	python-pip \
+	x11-apps \ 
         swig
 
 RUN pip install --upgrade pip setuptools
@@ -42,7 +43,7 @@ WORKDIR /opt/
 RUN git clone https://github.com/EttusResearch/uhd.git
 WORKDIR /opt/uhd/host
 RUN git remote update
-RUN git fetch
+RUN git fetch 
 RUN git checkout -b EttusResearch/${uhd_branch}
 
 RUN mkdir build && cd build
@@ -51,8 +52,6 @@ RUN cmake -DENABLE_B100=1 -DENABLE_B200=1 -DENABLE_E100=0 -DENABLE_E300=0 -DENAB
 RUN make -j${num_threads}
 RUN make install
 RUN ldconfig
-
-
 
 WORKDIR /opt/
 RUN git clone --recursive https://github.com/gnuradio/gnuradio.git
@@ -67,5 +66,19 @@ RUN cmake ../
 RUN make -j${num_threads}
 RUN make install
 RUN ldconfig
+
+# Replace 1000 with your user / group id
+RUN mkdir -p /etc/sudoers.d/ \
+
+RUN export uid=1000 gid=1000 && \
+    mkdir -p /home/developer && \
+    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+    echo "developer:x:${uid}:" >> /etc/group && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown ${uid}:${gid} -R /home/developer
+
+USER developer
+ENV HOME /home/developer
 
 CMD ["/bin/bash"]
